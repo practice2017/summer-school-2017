@@ -1,28 +1,29 @@
-'use strict'
-process.env.NODE_ENV = 'production'
+'use strict';
 
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const ProgressPlugin = require('webpack/lib/ProgressPlugin')
-const OfflinePlugin = require('offline-plugin')
-const rm = require('rimraf')
-const base = require('./webpack.base')
-const pkg = require('../package')
-const _ = require('./utils')
-const config = require('./config')
+process.env.NODE_ENV = 'production';
+
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const OfflinePlugin = require('offline-plugin');
+const rm = require('rimraf');
+const base = require('./webpack.base');
+const pkg = require('../package');
+const _ = require('./utils');
+const config = require('./config');
 
 if (config.electron) {
   // remove files in dist folder in electron mode
-  rm.sync('app/assets/*')
+  rm.sync('app/assets/*');
 } else {
   // remove dist folder in web app mode
-  rm.sync('dist/*')
+  rm.sync('dist/*');
   // use source-map in web app mode
-  base.devtool = 'source-map'
+  base.devtool = 'source-map';
 }
 
 // use hash filename to support long-term caching
-base.output.filename = '[name].[chunkhash:8].js'
+base.output.filename = '[name].[chunkhash:8].js';
 // add webpack plugins
 base.plugins.push(
   new ProgressPlugin(),
@@ -58,15 +59,15 @@ base.plugins.push(
       events: true
     }
   })
-)
+);
 
 // extract css in standalone css files
 _.cssProcessors.forEach(processor => {
-  let loaders
+  let loaders;
   if (processor.loader === '') {
-    loaders = ['postcss-loader']
+    loaders = ['postcss-loader'];
   } else {
-    loaders = ['postcss-loader', processor.loader]
+    loaders = ['postcss-loader', processor.loader];
   }
   base.module.loaders.push({
     test: processor.test,
@@ -75,7 +76,7 @@ _.cssProcessors.forEach(processor => {
       fallback: 'style-loader'
     })
   })
-})
+});
 
 // minimize webpack output
 base.stats = {
@@ -87,6 +88,6 @@ base.stats = {
   chunkModules: false,
   chunkOrigins: false,
   modules: false
-}
+};
 
-module.exports = base
+module.exports = base;
