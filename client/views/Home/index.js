@@ -1,4 +1,4 @@
-import Counter from 'components/Counter'
+import Counter from 'components/Counter';
 
 export default {
   render(h) {
@@ -9,6 +9,6 @@ export default {
           To get started, edit files in <code>./client</code> and save.
         </p>
       </div>
-    )
+    );
   }
-}
+};

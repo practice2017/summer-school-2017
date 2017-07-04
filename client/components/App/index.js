@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 
 export default {
   render(h) {
@@ -6,6 +6,6 @@ export default {
       <div id="app">
         <router-view></router-view>
       </div>
-    )
+    );
   }
-}
+};
