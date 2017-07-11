@@ -11,7 +11,7 @@ _.cwd = (file) => {
 };
 
 _.cssLoader = config.cssModules ?
-  'css-loader?-autoprefixer&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' :
+  'css-loader?-autoprefixer&modules&importLoaders=1&localIdentName=[local]' :
   'css-loader?-autoprefixer';
 
 _.cssProcessors = [
