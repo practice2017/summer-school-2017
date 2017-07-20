@@ -6,7 +6,9 @@ Vue.use(Vuex);
 
 const state = {
     count: 0,
-    city: 'Perm'
+    temperature: '+21°C',
+    city: 'Perm',
+    description: 'Пасмурно'
 }
 
 const mutations = {
@@ -26,7 +28,7 @@ const actions = {
     },
 
     getWeather ({ commit }) {
-        fetch(`api.openweathermap.org/data/2.5/forecast?id=511196&APPID=${apiKey}`).then(
+        fetch(`http://api.openweathermap.org/data/2.5/forecast?id=511196&APPID=${apiKey}`).then(
             (res) => console.log('res', res)
         )
     }
