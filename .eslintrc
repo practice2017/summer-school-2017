@@ -3,6 +3,8 @@
   "plugins": ["testcafe"],
   "rules": {
     "import/no-unresolved": 0,
-    "import/no-unassigned-import": 0
+    "import/no-unassigned-import": 0,
+    "indent": ["error", 4],
+    "semi": ["off"]
   }
 }

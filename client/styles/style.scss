@@ -1,15 +1,18 @@
 :global {
-    html, body {
+    html, body, #app {
         height: 100%;
     }
 
-    body, #app {
+    body {
         display: flex;
         flex-direction: column;
     }
 
     .page_details {
+        display: flex;
+        flex-direction: column;
         height: 100%;
         background-color: #84b8e2;
+        color: #fff;
     }
 }
