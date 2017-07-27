@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 import { apiKey } from '../../config.json'
 
 Vue.use(Vuex);
 
 const state = {
-    count: 0,
-    temperature: '+21°C',
+    temperature: 21,
     city: 'Perm',
     description: 'Пасмурно'
 }
@@ -17,6 +17,9 @@ const mutations = {
     },
     DECREMENT (state) {
         state.count--
+    },
+    SETTER (state, data) {
+        state.temperature = data.current.temp_c
     }
 }
 
@@ -28,8 +31,10 @@ const actions = {
     },
 
     getWeather ({ commit }) {
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?id=511196&APPID=${apiKey}`).then(
-            (res) => console.log('res', res)
+        axios.get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${state.city}`).then(
+            (res) => {
+                commit('SETTER', res.data);
+            }
         )
     }
 };

@@ -1,7 +1,6 @@
 <template>
     <div>
-        hello
-        {{ getCity }}
+        {{ getCity }}, {{ getTemp }}°C
         <button @click="$store.dispatch('getWeather')">Get weather</button>
     </div>
 </template>
@@ -11,6 +10,9 @@
         computed: {
             getCity() {
                 return this.$store.state.city
+            },
+            getTemp() {
+                return this.$store.state.temperature
             }
         }
     }
