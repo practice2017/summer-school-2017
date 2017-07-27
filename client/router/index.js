@@ -18,7 +18,7 @@ export default new Router({
             component: Search
         },
         {
-            path: '/city/:id',
+            path: '/city/:cityName',
             component: Details
         }
     ]

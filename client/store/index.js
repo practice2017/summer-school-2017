@@ -6,22 +6,25 @@ import { apiKey } from '../../config.json'
 Vue.use(Vuex);
 
 const state = {
-    temperature: 21,
-    city: 'Perm',
-    description: 'Пасмурно'
-}
+    temperature: '',
+    city: '',
+    description: '',
+    imgUrl: ''
+};
 
 const mutations = {
-    INCREMENT (state) {
-        state.count++
+    setWeather (state, data) {
+        state.temperature = data.current.temp_c;
+        state.description = data.current.condition.text;
+        state.imgUrl = data.current.condition.icon;
     },
-    DECREMENT (state) {
-        state.count--
+    setCity (state, cityName) {
+        state.city = cityName;
     },
-    SETTER (state, data) {
-        state.temperature = data.current.temp_c
+    setNotFound (state) {
+        state.city = null;
     }
-}
+};
 
 const actions = {
     incrementAsync ({ commit }) {
@@ -31,11 +34,14 @@ const actions = {
     },
 
     getWeather ({ commit }) {
-        axios.get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${state.city}`).then(
-            (res) => {
-                commit('SETTER', res.data);
-            }
-        )
+        axios
+            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${state.city}`)
+            .then(
+                (res) => {
+                    commit('setWeather', res.data);
+                }
+            )
+            .catch(() => commit('setNotFound'));
     }
 };
 
