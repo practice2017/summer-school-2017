@@ -1,26 +1,17 @@
 <template>
     <div v-if="getCity">
-        <div><img :src=getImg>{{ getCity }}, {{ getTemp }}°C</div>
-        <div>{{ getDescription }}</div>
+        <div><img :src=getCity.imgUrl>{{ getCity.name }}, {{ getCity.temperature }}°C</div>
+        <div>{{ getCity.description }}</div>
         <button @click="$store.dispatch('getWeather')">Get weather</button>
     </div>
-    <div v-else="getCity">City with name '{{ $route.params.cityName }}' not found</div>
+    <div v-else="getCity">City named '{{ $route.params.cityName }}' not found</div>
 </template>
 
 <script>
     export default {
         computed: {
             getCity() {
-                return this.$store.state.city;
-            },
-            getTemp() {
-                return this.$store.state.temperature;
-            },
-            getImg() {
-                return this.$store.state.imgUrl;
-            },
-            getDescription() {
-                return this.$store.state.description;
+                return this.$store.state.currentCity;
             }
         },
         mounted() {
