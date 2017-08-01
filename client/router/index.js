@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import List from './../views/List';
-import Search from './../views/Search';
-import Details from './../views/Details';
+import List from './../views/App';
 
 Vue.use(Router);
 
@@ -12,11 +10,6 @@ export default new Router({
         {
             path: '/',
             component: List
-        },
-        {
-            name: 'city',
-            path: '/city/:cityName',
-            component: Details
         }
     ]
 });
