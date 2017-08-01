@@ -14,10 +14,6 @@ export default new Router({
             component: List
         },
         {
-            path: '/search',
-            component: Search
-        },
-        {
             name: 'city',
             path: '/city/:cityName',
             component: Details
