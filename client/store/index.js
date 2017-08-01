@@ -13,18 +13,6 @@ const state = {
         imgUrl: ''
     },
     favouriteCityList: [ // Mock
-        {
-            name: 'Perm',
-            id: 1,
-            temperature: 0,
-            icon_url: null
-        },
-        {
-            name: 'Paris',
-            id: 2,
-            temperature: 0,
-            icon_url: null
-        }
     ]
 };
 
@@ -60,6 +48,7 @@ const mutations = {
         const newCity = {
             name: cityName,
             temperature: weather.current.temp_c,
+            conditionText: weather.current.condition.text,
             icon_url: weather.current.condition.icon
         };
         state.favouriteCityList.push(newCity);
@@ -71,6 +60,7 @@ const mutations = {
         axios.delete('http://localhost:3000/cities/' + cityToRemove.id);
     },
     setWeatherForCityInList (state, {index, weather}) {
+        state.favouriteCityList[index].conditionText = weather.current.condition.text;
         state.favouriteCityList[index].temperature = weather.current.temp_c;
         state.favouriteCityList[index].icon_url = weather.current.condition.icon;
     },
@@ -81,47 +71,38 @@ const mutations = {
 
 const actions = {
     getWeather ({commit}) {
-        axios
-            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${state.currentCity.name}`)
-            .then(
-                (res) => {
-                    commit('setWeather', res.data);
-                }
-            )
+        axios.get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${state.currentCity.name}`)
+            .then((res) => {
+                commit('setWeather', res.data);
+            })
             .catch(() => commit('setNotFound'));
     },
 
     searchCity ({state}, value) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`http://api.apixu.com/v1/search.json?key=${apiKey}&q=${value}`)
+            axios.get(`http://api.apixu.com/v1/search.json?key=${apiKey}&q=${value}`)
                 .then(res => resolve(res.data))
                 .catch(() => reject());
         });
     },
 
     getFavList ({commit}) {
-        axios
-            .get(`http://localhost:3000/cities`)
-            .then(
-                (res) => {
-                    commit('setCities', res.data);
-                }
-            )
+        axios.get(`http://localhost:3000/cities`)
+            .then((res) => {
+                commit('setCities', res.data);
+            })
             .catch(() => commit('setNotFound'));
     },
 
     getWeatherForCityList ({commit}, {index, city}) {
-        axios
-            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
+        axios.get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
             .then((res) => {
                 commit('setWeatherForCityInList', {index, weather: res.data});
             });
     },
 
     addToFavourite ({commit}, city) {
-        axios
-            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
+        axios.get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
             .then((res) => {
                 commit('addToFavourite', {cityName: city, weather: res.data});
             });

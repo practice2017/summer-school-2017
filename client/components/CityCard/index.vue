@@ -64,6 +64,8 @@
         </div>
 
         <!--<button @click="$store.dispatch('getWeather')">Get weather</button>-->
+
+        <router-link class="details-page__back-link" to="/">Return to cities list</router-link>
     </div>
 </template>
 
