@@ -10,7 +10,8 @@ const state = {
         temperature: '',
         name: '',
         description: '',
-        imgUrl: ''
+        imgUrl: '',
+        forecast: []
     },
     favouriteCityList: [ // Mock
         {
@@ -44,17 +45,22 @@ const mutations = {
         const {temp_c, condition} = data.current;
 
         state.currentCity = {
+            ... state.currentCity,
             temperature: temp_c,
             description: condition.text,
             imgUrl: condition.icon,
-            name: state.currentCity.name
         };
     },
     setCity (state, cityName) {
         state.currentCity.name = cityName;
     },
     setNotFound (state) {
-        state.currentCity = null;
+        state.currentCity = {
+            temperature: '',
+            name: null,
+            description: '',
+            imgUrl: ''
+        };
     },
     addToFavourite (state, {cityName, weather}) {
         const newCity = {
@@ -72,44 +78,64 @@ const mutations = {
     setWeatherForCityInList (state, {index, weather}) {
         state.favouriteCityList[index].temperature = weather.current.temp_c;
         state.favouriteCityList[index].icon_url = weather.current.condition.icon;
+    },
+
+    forecastLoaded (state, forecast) {
+        state.currentCity.forecast = forecast;
     }
 };
 
 const actions = {
     getWeather ({commit}) {
-        axios
-            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${state.currentCity.name}`)
-            .then(
-                (res) => {
-                    commit('setWeather', res.data);
-                }
-            )
-            .catch(() => commit('setNotFound'));
+        api.current(state.currentCity.name, (res) => {
+            commit('setWeather', res.data);
+        }, () => commit('setNotFound'));
     },
 
     searchCity ({state}, value) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`http://api.apixu.com/v1/search.json?key=${apiKey}&q=${value}`)
-                .then(res => resolve(res.data))
-                .catch(() => reject());
+            api.search(value, resolve, reject);
         });
     },
 
     getWeatherForCityList ({commit}, {index, city}) {
-        axios
-            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
-            .then((res) => {
-                commit('setWeatherForCityInList', {index, weather: res.data});
-            });
+        api.current(city, (res) => {
+            commit('setWeatherForCityInList', {index, weather: res.data});
+        }, null);
     },
 
     addToFavourite ({commit}, city) {
+        api.current(city, (res) => {
+            commit('addToFavourite', {cityName: city, weather: res.data});
+        }, null);
+    },
+
+    loadForecast ({commit}) {
+        api.forecast(state.currentCity.name, (res) => {
+            commit('forecastLoaded', res.data.forecast.forecastday);
+        }, null);
+    }
+
+};
+
+const api = {
+    current: (cityName, resolve, reject) => {
         axios
-            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
-            .then((res) => {
-                commit('addToFavourite', {cityName: city, weather: res.data});
-            });
+            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${cityName}`)
+            .then(resolve)
+            .catch(reject);
+    },
+    search: (searchString, resolve, reject) => {
+        axios
+            .get(`http://api.apixu.com/v1/search.json?key=${apiKey}&q=${searchString}`)
+            .then(res => resolve(res.data))
+            .catch(() => reject());
+    },
+    forecast: (cityName, resolve, reject) => {
+        axios
+            .get(`http://api.apixu.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=5`)
+            .then(resolve)
+            .catch(reject)
     }
 };
 
