@@ -48,6 +48,10 @@ const mutations = {
         const index = state.favouriteCityList
             .findIndex(city => cityToRemove.id === city.id);
         state.favouriteCityList.splice(index, 1);
+        axios.delete('http://localhost:3000/cities/' + cityToRemove.id);
+    },
+    setCities (state, list) {
+        state.favouriteCityList = list
     }
 };
 
@@ -70,6 +74,17 @@ const actions = {
                 .then(res => resolve(res.data))
                 .catch(() => reject());
         });
+    },
+
+    getFavList ({commit}) {
+        axios
+            .get(`http://localhost:3000/cities`)
+            .then(
+                (res) => {
+                    commit('setCities', res.data);
+                }
+            )
+            .catch(() => commit('setNotFound'));
     }
 };
 
