@@ -47,7 +47,6 @@
                     .findIndex(city => cityToAdd.id === city.id);
                 this.foundedCityList.splice(index, 1);
                 this.$store.dispatch('addToFavourite', cityToAdd.name);
-                axios.post('http://localhost:3000/cities', cityToAdd);
             }
         },
         computed: {

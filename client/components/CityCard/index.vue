@@ -33,13 +33,11 @@
             },
 
             getForecast() {
-                console.log(this.$store.state.currentCity.forecast);
                 return this.$store.state.currentCity.forecast;
             }
         },
         mounted() {
             this.$store.commit('setCity', this.$route.params.cityName);
-            this.$store.dispatch('getWeather');
             this.$store.dispatch('loadForecast');
         }
     }

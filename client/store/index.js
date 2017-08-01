@@ -69,6 +69,8 @@ const mutations = {
             icon_url: weather.current.condition.icon
         };
         state.favouriteCityList.push(newCity);
+
+        axios.post('http://localhost:3000/cities', newCity);
     },
     removeFromFavourite (state, cityToRemove) {
         const index = state.favouriteCityList
@@ -80,8 +82,17 @@ const mutations = {
         state.favouriteCityList[index].temperature = weather.current.temp_c;
         state.favouriteCityList[index].icon_url = weather.current.condition.icon;
     },
-    forecastLoaded (state, forecast) {
-        state.currentCity.forecast = forecast;
+    forecastLoaded (state, data) {
+        const {temp_c, condition} = data.current;
+
+        state.currentCity = {
+            ... state.currentCity,
+            temperature: temp_c,
+            description: condition.text,
+            imgUrl: condition.icon,
+        };
+
+        state.currentCity.forecast = data.forecast.forecastday;
     },
     setCities (state, list) {
         state.favouriteCityList = list
@@ -126,7 +137,7 @@ const actions = {
 
     loadForecast ({commit}) {
         api.forecast(state.currentCity.name, (res) => {
-            commit('forecastLoaded', res.data.forecast.forecastday);
+            commit('forecastLoaded', res.data);
         }, null);
     }
 
