@@ -74,14 +74,17 @@ const mutations = {
         const index = state.favouriteCityList
             .findIndex(city => cityToRemove.id === city.id);
         state.favouriteCityList.splice(index, 1);
+        axios.delete('http://localhost:3000/cities/' + cityToRemove.id);
     },
     setWeatherForCityInList (state, {index, weather}) {
         state.favouriteCityList[index].temperature = weather.current.temp_c;
         state.favouriteCityList[index].icon_url = weather.current.condition.icon;
     },
-
     forecastLoaded (state, forecast) {
         state.currentCity.forecast = forecast;
+    },
+    setCities (state, list) {
+        state.favouriteCityList = list
     }
 };
 
@@ -96,6 +99,17 @@ const actions = {
         return new Promise((resolve, reject) => {
             api.search(value, resolve, reject);
         });
+    },
+
+    getFavList ({commit}) {
+        axios
+            .get(`http://localhost:3000/cities`)
+            .then(
+                (res) => {
+                    commit('setCities', res.data);
+                }
+            )
+            .catch(() => commit('setNotFound'));
     },
 
     getWeatherForCityList ({commit}, {index, city}) {

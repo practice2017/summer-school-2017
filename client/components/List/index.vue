@@ -26,6 +26,8 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         methods: {
             searchCity: function (value) {
@@ -44,7 +46,8 @@
                 const index = this.foundedCityList
                     .findIndex(city => cityToAdd.id === city.id);
                 this.foundedCityList.splice(index, 1);
-                this.$store.dispatch('addToFavourite', cityToAdd.name)
+                this.$store.dispatch('addToFavourite', cityToAdd.name);
+                axios.post('http://localhost:3000/cities', cityToAdd);
             }
         },
         computed: {
@@ -56,6 +59,9 @@
             return {
                 foundedCityList: []
             }
+        },
+        mounted() {
+            this.$store.dispatch('getFavList');
         }
     };
 </script>
