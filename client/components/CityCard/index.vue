@@ -1,10 +1,70 @@
 <template>
-    <div v-if="getCity">
-        <div><img :src=getCity.imgUrl>{{ getCity.name }}, {{ getCity.temperature }}°C</div>
-        <div>{{ getCity.description }}</div>
-        <button @click="$store.dispatch('getWeather')">Get weather</button>
+    <div class="container details-page">
+        <h1 class="page__title">{{ getCity.name }}</h1>
+
+        <div class="details-page__status-icon">
+            <!--<img :src=getCity.imgUrl>-->
+        </div>
+
+        <div class="details-page__temperature">
+            {{ getCity.temperature }}°C
+        </div>
+
+        <div class="details-page__table">
+            <div class="details-page__table__column">
+                <div class="day-cell">
+                    <div class="day-cell__title">Сегодня</div>
+                    <div class="day-cell__status-icon"></div>
+                    <div class="day-cell__temperature">
+                        <div class="day-cell__temperature__day">+25 днем</div>
+                        <div class="day-cell__temperature__night">+11 ночью</div>
+                    </div>
+                </div>
+            </div>
+            <div class="details-page__table__column">
+                <div class="day-cell">
+                    <div class="day-cell__title">Сегодня</div>
+                    <div class="day-cell__status-icon"></div>
+                    <div class="day-cell__temperature">
+                        <div class="day-cell__temperature__day">+25 днем</div>
+                        <div class="day-cell__temperature__night">+11 ночью</div>
+                    </div>
+                </div>
+            </div>
+            <div class="details-page__table__column">
+                <div class="day-cell">
+                    <div class="day-cell__title">Сегодня</div>
+                    <div class="day-cell__status-icon"></div>
+                    <div class="day-cell__temperature">
+                        <div class="day-cell__temperature__day">+25 днем</div>
+                        <div class="day-cell__temperature__night">+11 ночью</div>
+                    </div>
+                </div>
+            </div>
+            <div class="details-page__table__column">
+                <div class="day-cell">
+                    <div class="day-cell__title">Сегодня</div>
+                    <div class="day-cell__status-icon"></div>
+                    <div class="day-cell__temperature">
+                        <div class="day-cell__temperature__day">+25 днем</div>
+                        <div class="day-cell__temperature__night">+11 ночью</div>
+                    </div>
+                </div>
+            </div>
+            <div class="details-page__table__column">
+                <div class="day-cell">
+                    <div class="day-cell__title">Сегодня</div>
+                    <div class="day-cell__status-icon"></div>
+                    <div class="day-cell__temperature">
+                        <div class="day-cell__temperature__day">+25 днем</div>
+                        <div class="day-cell__temperature__night">+11 ночью</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<button @click="$store.dispatch('getWeather')">Get weather</button>-->
     </div>
-    <div v-else="getCity">City named '{{ $route.params.cityName }}' not found</div>
 </template>
 
 <script>
