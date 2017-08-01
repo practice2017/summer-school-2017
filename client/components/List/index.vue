@@ -1,4 +1,4 @@
-<template xmlns:v-on="http://www.w3.org/1999/xhtml">
+<template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="container">
         <h1 class="page__title">Weather</h1>
 
@@ -13,12 +13,13 @@
         <div class="cities-list">
             <div class="city-card" v-for="city in getFavouriteCityList" :href="'/city/' + city.name">
                 <router-link v-bind:to="'/city/' + city.name" class="city-card__content">
-                    <div class="city-card__content__status-icon"></div>
-                    <div class="city-card__content__temperature">{need temp}</div>
+                    <div
+                            class="city-card__content__status-icon"
+                            v-bind:style="{ 'background-image': 'url(' + city.icon_url + ')' }"></div>
+                    <div class="city-card__content__temperature">{{city.temperature}}°C</div>
                     <div class="city-card__content__title">{{city.name}}</div>
-
-                    <button @click="$store.commit('removeFromFavourite', city)">Remove from fav</button>
                 </router-link>
+                <button @click="$store.commit('removeFromFavourite', city)">Remove from fav</button>
             </div>
         </div>
     </div>
@@ -45,13 +46,13 @@
                 const index = this.foundedCityList
                     .findIndex(city => cityToAdd.id === city.id);
                 this.foundedCityList.splice(index, 1);
-                this.$store.commit('addToFavourite', cityToAdd);
+                this.$store.dispatch('addToFavourite', cityToAdd.name);
                 axios.post('http://localhost:3000/cities', cityToAdd);
             }
         },
         computed: {
             getFavouriteCityList() {
-                return this.$store.state.favouriteCityList;
+                return this.$store.getters.favouriteCityList;
             }
         },
         data: function () {

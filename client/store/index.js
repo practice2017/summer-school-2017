@@ -15,13 +15,28 @@ const state = {
     favouriteCityList: [ // Mock
         {
             name: 'Perm',
-            id: 1
+            id: 1,
+            temperature: 0,
+            icon_url: null
         },
         {
             name: 'Paris',
-            id: 2
+            id: 2,
+            temperature: 0,
+            icon_url: null
         }
     ]
+};
+
+const getters = {
+    favouriteCityList: (state) => {
+        return state.favouriteCityList.map((city, index) => {
+            if (!city.temperature) {
+                store.dispatch('getWeatherForCityList', {index, city: city.name});
+            }
+            return city;
+        });
+    }
 };
 
 const mutations = {
@@ -41,7 +56,12 @@ const mutations = {
     setNotFound (state) {
         state.currentCity = null;
     },
-    addToFavourite (state, newCity) {
+    addToFavourite (state, {cityName, weather}) {
+        const newCity = {
+            name: cityName,
+            temperature: weather.current.temp_c,
+            icon_url: weather.current.condition.icon
+        };
         state.favouriteCityList.push(newCity);
     },
     removeFromFavourite (state, cityToRemove) {
@@ -49,6 +69,10 @@ const mutations = {
             .findIndex(city => cityToRemove.id === city.id);
         state.favouriteCityList.splice(index, 1);
         axios.delete('http://localhost:3000/cities/' + cityToRemove.id);
+    },
+    setWeatherForCityInList (state, {index, weather}) {
+        state.favouriteCityList[index].temperature = weather.current.temp_c;
+        state.favouriteCityList[index].icon_url = weather.current.condition.icon;
     },
     setCities (state, list) {
         state.favouriteCityList = list
@@ -85,11 +109,28 @@ const actions = {
                 }
             )
             .catch(() => commit('setNotFound'));
+    },
+
+    getWeatherForCityList ({commit}, {index, city}) {
+        axios
+            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
+            .then((res) => {
+                commit('setWeatherForCityInList', {index, weather: res.data});
+            });
+    },
+
+    addToFavourite ({commit}, city) {
+        axios
+            .get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${city}`)
+            .then((res) => {
+                commit('addToFavourite', {cityName: city, weather: res.data});
+            });
     }
 };
 
 const store = new Vuex.Store({
     state,
+    getters,
     mutations,
     actions
 });
