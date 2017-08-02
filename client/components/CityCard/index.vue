@@ -22,6 +22,8 @@
                 </div>
             </div>
         </div>
+
+        <router-link class="details-page__back-link" to="/">Return to cities list</router-link>
     </div>
 </template>
 

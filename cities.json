@@ -1,0 +1,16 @@
+{
+  "cities": [
+    {
+      "id": 1,
+      "name": "Perm",
+      "temperature": 0,
+      "icon_url": null
+    },
+    {
+      "id": 2,
+      "name": "Moscow",
+      "temperature": 0,
+      "icon_url": null
+    }
+  ]
+}
