@@ -1,7 +1,6 @@
 <template>
     <div class="page">
         <CityCard></CityCard>
-        <router-link to="/">Return to cities list</router-link>
     </div>
 </template>
 

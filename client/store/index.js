@@ -14,18 +14,6 @@ const state = {
         forecast: []
     },
     favouriteCityList: [ // Mock
-        {
-            name: 'Perm',
-            id: 1,
-            temperature: 0,
-            icon_url: null
-        },
-        {
-            name: 'Paris',
-            id: 2,
-            temperature: 0,
-            icon_url: null
-        }
     ]
 };
 
@@ -66,6 +54,7 @@ const mutations = {
         const newCity = {
             name: cityName,
             temperature: weather.current.temp_c,
+            conditionText: weather.current.condition.text,
             icon_url: weather.current.condition.icon
         };
         state.favouriteCityList.push(newCity);
@@ -79,6 +68,7 @@ const mutations = {
         axios.delete('http://localhost:3000/cities/' + cityToRemove.id);
     },
     setWeatherForCityInList (state, {index, weather}) {
+        state.favouriteCityList[index].conditionText = weather.current.condition.text;
         state.favouriteCityList[index].temperature = weather.current.temp_c;
         state.favouriteCityList[index].icon_url = weather.current.condition.icon;
     },
@@ -113,13 +103,10 @@ const actions = {
     },
 
     getFavList ({commit}) {
-        axios
-            .get(`http://localhost:3000/cities`)
-            .then(
-                (res) => {
-                    commit('setCities', res.data);
-                }
-            )
+        axios.get(`http://localhost:3000/cities`)
+            .then((res) => {
+                commit('setCities', res.data);
+            })
             .catch(() => commit('setNotFound'));
     },
 

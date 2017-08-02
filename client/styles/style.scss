@@ -2,12 +2,15 @@
 @import "components/cities-list";
 @import "components/city-card";
 @import "components/day-cell";
+@import "components/search-panel";
 
 @import "pages/details";
 
 * {
     padding: 0;
     margin: 0;
+    outline: none;
+    box-sizing: border-box;
 }
 
 body {
