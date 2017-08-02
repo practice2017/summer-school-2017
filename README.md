@@ -6,10 +6,16 @@ To start:
 $ npm install
 ```
 
+```bash
+$ npm install -g json-server
+$ json-server —watch cities.json
+```
+
 To develop:
 
 ```bash
-$ npm run dev```
+$ npm run dev
+```
 
 To build for production:
 
