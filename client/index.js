@@ -1,11 +1,14 @@
-import './promise-polyfill';
-import {app} from './app';
+import CityCard from './CityCard';
+import axios from 'axios';
+import { apiKey } from './../config.json';
 
-import 'styles/style.scss';
+const cityName = 'Perm';
 
-// Enable progressive web app support (with offline-plugin)
-if (process.env.NODE_ENV === 'production') {
-    require('./pwa');
-}
+document.getElementById('add_city').onclick = () => {
+    axios.get(`http://api.apixu.com/v1/current.json?key=${apiKey}&q=${cityName}`)
+        .then(res => {
+            const city = new CityCard(res.data);
+        })
+        .catch(e => console.log('error'));
+};
 
-app.$mount('#app');

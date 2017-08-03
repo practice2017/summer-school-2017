@@ -5,8 +5,8 @@ fixture `Index page`
 
 const page = new IndexPage();
 
-test('first test', async t => {
-    await t.expect(page.counter.innerText).contains('0')
+test('test render City', async t => {
+    await t.expect(page.counter.innerHTML).contains('div')
         .click(page.increment)
         .expect(page.counter.innerText).contains('1')
         .click(page.desrement)
