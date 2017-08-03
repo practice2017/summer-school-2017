@@ -14,7 +14,7 @@ class CityCard {
                 <img styl src=${this.icon}>
                 <span>${this.text}</span>
                 <span>${this.country}</span>
-                <span>${this.name}</span>
+                <span class="city-card__name">${this.name}</span>
             </div>`;
 
         document.getElementById('weather-container').innerHTML += murkup;
