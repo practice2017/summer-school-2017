@@ -1,10 +1,4 @@
-@import "components/page";
-@import "components/cities-list";
-@import "components/city-card";
-@import "components/day-cell";
-@import "components/search-panel";
-
-@import "pages/details";
+@import "components/elements-list";
 
 * {
     padding: 0;
@@ -17,10 +11,4 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', Ubuntu, 'segoe ui', arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
-}
-
-.container {
-    max-width: 1024px;
-    padding: 0 25px;
-    margin: 0 auto;
 }
