@@ -5,6 +5,59 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <h1>Hello</h1>
+  <div class="container">
+    <h1 class="page__title">Weather</h1>
+
+    <div class="search-panel">
+      <input class="search-panel__input"
+             type="search"
+             placeholder="Search city"
+      >
+      <div class="search-panel__list">
+        <div class="search-panel__list__item">
+          Пермь
+        </div>
+        <div class="search-panel__list__item">
+          Москва
+        </div>
+        <div class="search-panel__list__item">
+          Санкт-Петербург
+        </div>
+      </div>
+    </div>
+
+    <div class="cities-list">
+      <div class="city-card">
+        <div class="city-card__content">
+          <div class="city-card__content__status-icon"
+               style="background-image: url('//cdn.apixu.com/weather/64x64/night/113.png')"></div>
+          <div class="city-card__content__condition">Clear</div>
+          <div class="city-card__content__temperature">+12°C</div>
+          <div class="city-card__content__title">Пермь</div>
+        </div>
+        <button class="city-card__remove">Remove from fav</button>
+      </div>
+      <div class="city-card">
+        <div class="city-card__content">
+          <div class="city-card__content__status-icon"
+               style="background-image: url('//cdn.apixu.com/weather/64x64/day/116.png')"></div>
+          <div class="city-card__content__condition">Partly cloudy</div>
+          <div class="city-card__content__temperature">+12°C</div>
+          <div class="city-card__content__title">Москва</div>
+        </div>
+        <button class="city-card__remove">Remove from fav</button>
+      </div>
+      <div class="city-card">
+        <div class="city-card__content">
+          <div class="city-card__content__status-icon"
+               style="background-image: url('//cdn.apixu.com/weather/64x64/day/353.png')"></div>
+          <div class="city-card__content__condition">Light rain shower</div>
+          <div class="city-card__content__temperature">-12°C</div>
+          <div class="city-card__content__title">Санкт-Петербург</div>
+        </div>
+        <button class="city-card__remove">Remove from fav</button>
+      </div>
+    </div>
+  </div>
   </body>
 </html>

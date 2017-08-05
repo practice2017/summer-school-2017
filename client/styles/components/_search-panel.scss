@@ -1,0 +1,28 @@
+.search-panel {
+  &__input {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 15px 15px;
+    display: block;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', Ubuntu, 'segoe ui', arial, sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  &__list {
+    &__item {
+      padding: 8px 15px;
+      margin: 0 -15px;
+      color: #323232;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background ease-in-out 150ms;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+}
