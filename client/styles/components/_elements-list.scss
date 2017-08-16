@@ -1,0 +1,124 @@
+body {
+  width: 1200px;
+ /* background-color: #eee;*/
+  background-color: #fcfcfc;
+}
+
+.logo {
+  margin: 0 auto;
+  width: 246px;
+  margin-bottom: 30px;
+
+}
+
+.logo img {
+  width: 246px;
+  margin-top: 20px;
+
+}
+
+.header
+{
+  width:63%;
+  margin: 0 auto;
+  padding: 40px 0px 56px 0px;
+}
+
+.header a
+{
+  display:inline-block;
+  padding: 0px 30px;
+  text-decoration: none;
+  font-family: 'Web Serveroff', arial;
+  font-size: 30px;
+  line-height: 1.33;
+  letter-spacing: 0.9px;
+  color: #030303;
+}
+
+.header a:hover
+{
+  color: #d24a43;
+}
+
+
+
+.content
+{
+  margin:0 auto;
+  background: #fff;
+  width: 1005px;
+  box-shadow: 0px 6px 24px 0 rgba(0, 0, 0, 0.14);
+  padding-bottom: 50px;
+
+}
+
+.book-container
+{
+  text-decoration: none;
+  margin: 0 auto;
+  width: 798px;
+  height: 181px;
+  background-color: #fff;
+  box-shadow: 0px 1px 8px 0 rgba(0, 0, 0, 0.13);
+  margin-bottom:12px;
+}
+
+.book-name h1
+{
+
+  font-family: 'Web Serveroff', arial;
+  font-size: 30px;
+  line-height: 1.33;
+  letter-spacing: 2.7px;
+  color: #030303;
+  padding: 32px 14px 0px 200px;
+}
+
+.author-name h2
+{
+  font-family: 'Web Serveroff', arial;
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 1.8px;
+  text-align: left;
+  color: #030303;
+  padding: 0px 14px 14px 200px;
+}
+
+.read-more
+{
+  width: 182px;
+  height: 42px;
+  border-radius: 21px;
+  background-color: #d24a43;
+  font-family: Florentia;
+  font-size: 17px;
+  line-height: 2.35;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 38px 11px 46px;
+  margin-left: 195px;
+
+}
+
+a.read-more:hover
+{
+  background-color: #000;
+}
+
+.favorites
+{
+  border: 0;
+  background-color: #fff;
+
+  width: 50px;
+  vertical-align: middle;
+  display: block;
+  position: relative;
+  left: 80%;
+  bottom: 60%;
+}
+
