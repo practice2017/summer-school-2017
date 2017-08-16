@@ -10,7 +10,7 @@
             <a href="#">Прочитано</a>
             <a href="#">Избранное</a>
         </div>
-        <div class="book-container" v-for="book in getFavouriteBookList">
+        <div class="book-container" v-for="book in getReadBookList">
 
             <div class="book-name">
                 <h1>{{ book.name }}</h1>
@@ -19,7 +19,7 @@
                 <h2>{{ book.author}}</h2>
             </div>
             <router-link :to="'/book/' + book.id" class="read-more">
-            Подробнее
+                Подробнее
             </router-link>
             <button class="favorites" @click="removeFromFav(book)"><img src="https://image.ibb.co/kHdqEv/2.png"></button>
         </div>
@@ -31,8 +31,8 @@
 <script>
     export default {
         computed:{
-            getFavouriteBookList(){
-                return this.$store.state.favouriteBookList;
+            getReadBookList(){
+                return this.$store.state.readBookList;
             }
         },
         methods:{
@@ -41,7 +41,7 @@
             }
         },
         mounted(){
-            this.$store.dispatch('getBooks');
+            this.$store.dispatch('getReadBooks');
         }
     }
 </script>

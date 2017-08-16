@@ -10,7 +10,7 @@
             <div class="detail">
                 <p>{{ getBook.more_information }}</p>
             </div>
-            <a href="#" class="read-more">Прочитать</a>
+            <button class="read-more" @click="addToRead(getBook.name, getBook.author, getBook.more_information)">Прочитать</button>
         </div>
     </div>
 
@@ -27,6 +27,12 @@
             },
 
         },
+       methods:{
+           addToRead: function(bookName,bookAuthor,bookMoreInformation){
+               console.log(bookName,bookAuthor,bookMoreInformation);
+               this.$store.commit('addToRead', {bookName,bookAuthor,bookMoreInformation});
+           }
+       },
        mounted(){
            this.$store.dispatch('getBook',this.$route.params.book_name);
        }
