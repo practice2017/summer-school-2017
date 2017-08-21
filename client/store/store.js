@@ -4,7 +4,9 @@ import axios from 'axios';
 Vue.use(Vuex);
 const state = {
         favouriteBookList: [],
-        readBookList:[]
+        readBookList:[],
+        doneList:[],
+        favouriteList:[]
 };
 
 const mutations = {
@@ -16,9 +18,18 @@ const mutations = {
         state.readBookList = data;
     },
 
+    setDoneBook(state, data) {
+        state.doneList = data;
+    },
+
+    setFavouriteBook(state, data) {
+        state.favouriteList = data;
+    },
+
     removeBook (state, book) {
         state.favouriteBookList.splice(state.favouriteBookList.indexOf(book),1)
     },
+
     addToRead (state, {bookName,bookAuthor,bookMoreInformation}) {
         const newBook = {
             name: bookName,
@@ -29,6 +40,26 @@ const mutations = {
 
         axios.post('http://localhost:3000/read', newBook);
     },
+    removeFromRead (state, bookToRemove) {
+        const index = state.readBookList
+            .findIndex(book => bookToRemove.id === book.id);
+        state.readBookList.splice(index, 1);
+        axios.delete('http://localhost:3000/read/' + bookToRemove.id);
+    },
+
+    removeFromDone (state, bookToRemove) {
+        const index = state.doneList
+            .findIndex(book => bookToRemove.id === book.id);
+        state.doneList.splice(index, 1);
+        axios.delete('http://localhost:3000/done/' + bookToRemove.id);
+    },
+
+    removeFromFavourite (state, bookToRemove) {
+        const index = state.favouriteList
+            .findIndex(book => bookToRemove.id === book.id);
+        state.favouriteList.splice(index, 1);
+        axios.delete('http://localhost:3000/favourite/' + bookToRemove.id);
+    }
 
 };
 
@@ -47,6 +78,22 @@ const actions = {
         axios.get('http://localhost:3000/read')
             .then((res) => {
                 commit('setReadBook', res.data)
+            });
+
+    },
+
+    getDoneBooks ({commit}) {
+        axios.get('http://localhost:3000/done')
+            .then((res) => {
+                commit('setDoneBook', res.data)
+            });
+
+    },
+
+    getFavouriteBooks ({commit}) {
+        axios.get('http://localhost:3000/favourite')
+            .then((res) => {
+                commit('setFavouriteBook', res.data)
             });
 
     },

@@ -14,7 +14,7 @@
                 Избранное
             </router-link>
         </div>
-        <div class="book-container" v-for="book in getReadBookList">
+        <div class="book-container" v-for="book in getDoneList">
 
             <div class="book-name">
                 <h1>{{ book.name }}</h1>
@@ -35,17 +35,17 @@
 <script>
     export default {
         computed:{
-            getReadBookList(){
-                return this.$store.state.readBookList;
+            getDoneList(){
+                return this.$store.state.doneList;
             }
         },
         methods:{
             removeFromFav: function(book){
-                this.$store.commit('removeFromRead', book);
+                this.$store.commit('removeFromDone', book);
             }
         },
         mounted(){
-            this.$store.dispatch('getReadBooks');
+            this.$store.dispatch('getDoneBooks');
         }
     }
 </script>

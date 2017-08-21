@@ -7,8 +7,12 @@
             <router-link to='/readlist'>
                 Читаю
             </router-link>
-            <a href="#">Прочитано</a>
-            <a href="#">Избранное</a>
+            <router-link to='/done'>
+                Прочитано
+            </router-link>
+            <router-link to='/favourite'>
+                Избранное
+            </router-link>
         </div>
         <div class="book-container" v-for="book in getFavouriteBookList">
 

@@ -1,5 +1,19 @@
 <template>
     <div class="book-list">
+        <div class="header">
+            <router-link to='/'>
+                Главная
+            </router-link>
+            <router-link to='/readlist'>
+                Читаю
+            </router-link>
+            <router-link to='/done'>
+                Прочитано
+            </router-link>
+            <router-link to='/favourite'>
+                Избранное
+            </router-link>
+        </div>
         <div class="book-container">
             <div class="book-name">
                 <h1>{{ getBook.name }}</h1>
