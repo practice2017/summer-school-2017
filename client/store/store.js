@@ -26,8 +26,19 @@ const mutations = {
         state.favouriteList = data;
     },
 
-    removeBook (state, book) {
-        state.favouriteBookList.splice(state.favouriteBookList.indexOf(book),1)
+    removeBook (state, bookToRemove) {
+        const index = state.favouriteBookList
+            .findIndex(book => bookToRemove.id === book.id);
+        state.favouriteBookList.splice(index, 1);
+        const newBook = {
+            name: bookToRemove.name,
+            author: bookToRemove.author,
+            more_information: bookToRemove.more_information
+        };
+        state.favouriteList.push(newBook);
+
+        axios.post('http://localhost:3000/favourite', newBook);
+        axios.delete('http://localhost:3000/books/' + bookToRemove.id);
     },
 
     addToRead (state, {bookName,bookAuthor,bookMoreInformation}) {
@@ -44,6 +55,14 @@ const mutations = {
         const index = state.readBookList
             .findIndex(book => bookToRemove.id === book.id);
         state.readBookList.splice(index, 1);
+        const newBook = {
+            name: bookToRemove.name,
+            author: bookToRemove.author,
+            more_information: bookToRemove.more_information
+        };
+        state.favouriteList.push(newBook);
+
+        axios.post('http://localhost:3000/done', newBook);
         axios.delete('http://localhost:3000/read/' + bookToRemove.id);
     },
 
@@ -58,6 +77,14 @@ const mutations = {
         const index = state.favouriteList
             .findIndex(book => bookToRemove.id === book.id);
         state.favouriteList.splice(index, 1);
+        const newBook = {
+            name: bookToRemove.name,
+            author: bookToRemove.author,
+            more_information: bookToRemove.more_information
+        };
+        state.favouriteBookList.push(newBook);
+
+        axios.post('http://localhost:3000/books', newBook);
         axios.delete('http://localhost:3000/favourite/' + bookToRemove.id);
     }
 

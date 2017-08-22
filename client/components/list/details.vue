@@ -14,7 +14,7 @@
                 Избранное
             </router-link>
         </div>
-        <div class="book-container">
+        <div class="more">
             <div class="book-name">
                 <h1>{{ getBook.name }}</h1>
             </div>

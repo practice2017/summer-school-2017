@@ -14,6 +14,7 @@
                 Избранное
             </router-link>
         </div>
+
         <div class="book-container" v-for="book in getFavouriteBookList">
 
             <div class="book-name">
@@ -25,10 +26,9 @@
             <router-link :to="'/book/' + book.id" class="read-more">
             Подробнее
             </router-link>
-            <button class="favorites" @click="removeFromFav(book)"><img src="https://image.ibb.co/kHdqEv/2.png"></button>
+            <button class="favorites" @click="removeFromFav(book)"></button>
         </div>
-    </div>
-
+        </div>
 </template>
 
 
@@ -37,6 +37,11 @@
         computed:{
             getFavouriteBookList(){
                 return this.$store.state.favouriteBookList;
+            }
+        },
+        data: function () {
+            return {
+                foundedBookList: []
             }
         },
         methods:{

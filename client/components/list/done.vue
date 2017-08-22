@@ -25,7 +25,7 @@
             <router-link :to="'/book/' + book.id" class="read-more">
                 Подробнее
             </router-link>
-            <button class="favorites" @click="removeFromFav(book)"><img src="https://image.ibb.co/kHdqEv/2.png"></button>
+            <button class="remove" @click="removeFromFav(book)"></button>
         </div>
     </div>
 
